@@ -18,7 +18,8 @@ class GroupHost(Bean):
         return cls.delete('grp_id = %s and host_id in (%s)' % (grp_id, host_ids))
 
     @classmethod
-    def bind(cls, group_id, hostname):
+    def bind(cls, group_id, hostname_read):
+        hostname = hostname_read.strip()
         h = Host.read('hostname = %s', [hostname])
         if not h:
             Host.create(hostname)
